@@ -23,13 +23,13 @@ const (
 	blackIndex = 1 // next color in palette
 )
 
-// Q. なぜqueryが何もない時何も表示されないの?
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		num := 5
-		if q := r.URL.Query(); q != nil {
-			s := q.Get("cycles")
+		q := r.URL.Query()
+		if s := q.Get("cycles"); s != "" {
+			log.Printf(s)
 			num, _ = strconv.Atoi(s) //errorつぶしてます
 		}
 		lissajous(w, num)
